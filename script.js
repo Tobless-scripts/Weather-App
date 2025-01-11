@@ -1,4 +1,4 @@
-import { API_KEY } from "./api.js";
+const API_KEY = "591599ac72b65ff2b515180cf5672865";
 
 document.getElementById("getWeather").addEventListener("click", () => {
     let city = document.getElementById("cityName").value;
@@ -19,23 +19,23 @@ document.getElementById("getWeather").addEventListener("click", () => {
                     // Get the weather icon code
                     const iconCode = data.weather[0].icon;
                     // Construct the image URL using the icon code
-                    const iconUrl = `http://openweathermap.org/img/wn/${iconCode}.png`;
+                    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
                     const weatherImg = `<img src="${iconUrl}" alt="Weather Icon" class="weatherImg" />`;
 
                     // Prepare the HTML content to display the weather information
                     const weather = `
-                    <div class= "weatherDiv">
+                    <div class="weatherDiv">
                         <p><strong>Location:</strong> ${data.name}, ${data.sys.country}</p>
                     </div>
-                    <div class= "weatherDiv">
+                    <div class="weatherDiv">
                         <p><strong>Temperature:</strong> ${data.main.temp}°C</p>
                     </div>
-                     <div class= "weatherDiv">
+                    <div class="weatherDiv">
                         <p><strong>Weather:</strong> ${data.weather[0].description}</p>
                     </div>
-                     <div class= "weatherDiv">
-                    <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
+                    <div class="weatherDiv">
+                        <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
                     </div>`;
 
                     // Set the weather information to the result div
