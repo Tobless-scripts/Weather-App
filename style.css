@@ -23,8 +23,8 @@ body {
 
 .weather-app {
     max-width: 400px;
-    margin: 50px auto;
-    padding: 5rem 1rem;
+    margin: 1% auto;
+    padding: 1rem 1rem;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -64,6 +64,13 @@ button:hover {
     gap: 2rem;
     overflow-x: scroll;
 }
+#hourly-forecast {
+    display: grid;
+    grid-template-columns: repeat(8, 30%);
+    gap: 2rem;
+    margin: 3em auto;
+    overflow-x: scroll;
+}
 .weatherDiv {
     display: flex;
     flex-direction: column;
@@ -81,4 +88,12 @@ strong {
 h1 {
     font-weight: 700;
     letter-spacing: 0.1rem;
+}
+.hourly-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
 }

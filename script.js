@@ -26,13 +26,19 @@ document.getElementById("getWeather").addEventListener("click", () => {
                     // Prepare the HTML content to display the weather information
                     const weather = `
                     <div class="weatherDiv">
-                        <p><strong>Location:</strong> ${data.name}, ${data.sys.country}</p>
+                        <p><strong>Location:</strong> ${data.name}, ${
+                        data.sys.country
+                    }</p>
                     </div>
                     <div class="weatherDiv">
-                        <p><strong>Temperature:</strong> ${data.main.temp}°C</p>
+                        <p><strong>Temperature:</strong> ${Math.round(
+                            data.main.temp - 273.15
+                        )}°C</p>
                     </div>
                     <div class="weatherDiv">
-                        <p><strong>Weather:</strong> ${data.weather[0].description}</p>
+                        <p><strong>Weather:</strong> ${
+                            data.weather[0].description
+                        }</p>
                     </div>
                     <div class="weatherDiv">
                         <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
@@ -46,14 +52,73 @@ document.getElementById("getWeather").addEventListener("click", () => {
                         "results"
                     ).innerHTML = `<p>City not found.</p>`;
                 }
+
+                const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`;
+                fetch(forecastUrl)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        displayHourlyForecast(data.list);
+                    })
+                    .catch((error) => {
+                        console.error(
+                            "Error fetching hourly forecast data:",
+                            error
+                        );
+                    });
+
+                function displayHourlyForecast(hourlyData) {
+                    const hourlyForeCastDiv =
+                        document.getElementById("hourly-forecast");
+
+                    hourlyForeCastDiv.innerHTML = "";
+
+                    const currentTime = new Date();
+                    const currentHour = currentTime.getHours();
+
+                    let closestIndex = 0;
+                    for (let i = 0; i < hourlyData.length; i++) {
+                        const forecastTime = new Date(hourlyData[i].dt * 1000);
+                        const forecastHour = forecastTime.getHours();
+
+                        if (forecastHour >= currentHour) {
+                            closestIndex = i;
+                            break;
+                        }
+                    }
+
+                    const next24Hours = hourlyData.slice(
+                        closestIndex,
+                        closestIndex + 8
+                    );
+
+                    next24Hours.forEach((item) => {
+                        const dateTime = new Date(item.dt * 1000);
+                        const hour = dateTime.getHours();
+                        const temperature = Math.round(item.main.temp);
+                        const iconCode = item.weather[0].icon;
+                        const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
+
+                        const hourlyItemHtml = `
+                                <div class="hourly-item">
+                                    <span>${hour}:00</span>
+                                    <img src="${iconUrl}" alt="Hourly Weather Icon" />
+                                    <span>${temperature}°C</span>
+                                </div>`;
+
+                        hourlyForeCastDiv.innerHTML += hourlyItemHtml;
+                    });
+                }
             } catch (e) {
                 console.log(e.message);
                 document.getElementById(
                     "results"
                 ).innerHTML = `<p>Error: ${e.message}</p>`;
             }
-            document.getElementById("cityName").value = ""; // Clear the input field after fetching
+            document.getElementById("cityName").value = "";
         }
         fetchData();
+    } else {
+        alert("Please enter a city");
+        return;
     }
 });
