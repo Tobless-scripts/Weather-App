@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Chewy&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #8c52ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: "Chewy", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.weather-app {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 5rem 1rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+input {
+    padding: 10px;
+    width: 80%;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #debff4;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #8b48d7;
+}
+
+#weatherResult {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+#results {
+    display: grid;
+    grid-template-columns: repeat(4, 30%);
+    gap: 2rem;
+    overflow-x: scroll;
+}
+.weatherDiv {
+    display: flex;
+    flex-direction: column;
+}
+img {
+    width: 5em;
+}
+p {
+    font-weight: 500;
+}
+strong {
+    font-weight: 100;
+}
+
+h1 {
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+}
